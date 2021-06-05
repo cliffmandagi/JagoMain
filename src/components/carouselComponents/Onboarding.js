@@ -33,7 +33,6 @@ const Onboarding = () => {
           onViewableItemsChanged={viewableItemsChanged}
           viewabilityConfig={viewConfig}
           ref={slidesRef}
-          scrollEventThrottle={32}
         />
       </View>
       <Paginator data={carouselData} scrollX={scrollX} />
