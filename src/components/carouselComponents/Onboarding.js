@@ -11,7 +11,6 @@ const Onboarding = () => {
     setCurrentIndex(viewableItems[0].index);
   }).current;
   const slidesRef = useRef(null);
-  const viewConfig = useRef({viewAreaCoveragePercentThreshold: 50}).current;
 
   return (
     <View style={styles.container}>
@@ -23,16 +22,18 @@ const Onboarding = () => {
           showsHorizontalScrollIndicator={false}
           pagingEnabled={true} // snaps the element into place.
           bounces={false} // set the overflowing swipe to false.
-          renderItem={({item}) => {
-            return <OnboardingItem item={item} />;
+          renderItem={({item, index}) => {
+            return (
+              <OnboardingItem item={item} scrollX={scrollX} index={index} />
+            );
           }}
           onScroll={Animated.event(
             [{nativeEvent: {contentOffset: {x: scrollX}}}],
             {useNativeDriver: false},
           )}
           onViewableItemsChanged={viewableItemsChanged}
-          viewabilityConfig={viewConfig}
           ref={slidesRef}
+          scrollEventThrottle={32}
         />
       </View>
       <Paginator data={carouselData} scrollX={scrollX} />

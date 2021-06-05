@@ -1,14 +1,29 @@
 import React from 'react';
-import {View, StyleSheet, Image, useWindowDimensions} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  useWindowDimensions,
+  Animated,
+} from 'react-native';
 import {Text} from 'react-native-elements';
 
-const OnboardingItem = ({item}) => {
+const OnboardingItem = ({item, scrollX, index}) => {
   const {width, height} = useWindowDimensions();
+  const scale = scrollX.interpolate({
+    inputRange: [(index - 1) * width, index * width, (index + 1) * width],
+    outputRange: [0, 1, 0],
+    extrapolate: 'clamp',
+  });
   return (
     <View style={{...styles.container, width: width, height: height}}>
-      <Image
+      <Animated.Image
         source={item.image}
-        style={{...styles.image, width: width / 1.5}}
+        style={{
+          ...styles.image,
+          width: width / 1.5,
+          transform: [{scale}],
+        }}
       />
       <View style={{flex: 0.4}}>
         <Text h3 style={styles.title}>
