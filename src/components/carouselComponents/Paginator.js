@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {Text} from 'react-native-elements';
+import {useNavigation} from '@react-navigation/native';
 
 const Paginator = ({data, scrollX}) => {
+  const navigation = useNavigation();
   const {width} = useWindowDimensions();
   const scale = scrollX.interpolate({
     inputRange: [(3 - 1) * width, (3 - 0.5) * width, 3 * width],
@@ -38,7 +39,9 @@ const Paginator = ({data, scrollX}) => {
         );
       })}
 
-      <TouchableOpacity style={{position: 'absolute', right: 30}}>
+      <TouchableOpacity
+        style={{position: 'absolute', right: 30}}
+        onPress={() => navigation.navigate('SignIn')}>
         <Animated.Image
           source={require('./../../../assets/NextButton.png')}
           style={{width: 64, height: 64, transform: [{scale: scale}]}}

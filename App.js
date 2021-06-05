@@ -10,22 +10,36 @@ const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      {/* <Stack.Navigator initialRouteName="Welcome"> */}
-      <Stack.Navigator initialRouteName="SignIn">
-        <Stack.Screen
-          // component={IntroductionCarouselScreen}
-          component={SignInScreen}
-          name="SignIn"
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          component={SignUpScreen}
-          name="SignUp"
-          options={{headerShown: false}}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <View style={{flex: 1, backgroundColor: '#003049'}}>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Welcome">
+          <Stack.Screen
+            component={IntroductionCarouselScreen}
+            name="Welcome"
+            options={{
+              headerShown: false,
+              cardStyle: {backgroundColor: 'black'},
+            }}
+          />
+          <Stack.Screen
+            component={SignInScreen}
+            name="SignIn"
+            options={{
+              headerShown: false,
+              cardStyle: {backgroundColor: 'black'},
+            }}
+          />
+          <Stack.Screen
+            component={SignUpScreen}
+            name="SignUp"
+            options={{
+              headerShown: false,
+              cardStyle: {backgroundColor: 'black'},
+            }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </View>
   );
 };
 
