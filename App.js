@@ -15,7 +15,7 @@ const App = () => {
     <View style={{flex: 1, backgroundColor: '#003049'}}>
       <AuthProvider>
         <NavigationContainer>
-          <Stack.Navigator initialRouteName="Home">
+          <Stack.Navigator initialRouteName="Welcome">
             <Stack.Screen
               component={IntroductionCarouselScreen}
               name="Welcome"
