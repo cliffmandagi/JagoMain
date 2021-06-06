@@ -1,9 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {Image, View, TouchableOpacity, StyleSheet} from 'react-native';
 import {Input, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
+import {Context as AuthContext} from '../context/AuthContext';
 
 const SignInScreen = ({navigation}) => {
+  const {state, signin} = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   return (
@@ -58,7 +60,9 @@ const SignInScreen = ({navigation}) => {
           alignItems: 'center',
         }}>
         <Image source={require('../../assets/google.png')} />
-        <TouchableOpacity style={{...styles.button, marginLeft: 20}}>
+        <TouchableOpacity
+          style={{...styles.button, marginLeft: 20}}
+          onPress={signin}>
           <Text
             style={{color: 'white', fontFamily: 'Poppins-Black', fontSize: 16}}>
             Masuk pake gugle

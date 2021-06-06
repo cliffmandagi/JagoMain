@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {View, Text, Button} from 'react-native';
@@ -8,10 +8,17 @@ import SignUpScreen from './src/screens/SignUpScreen';
 import HomeScreen from './src/screens/HomeScreen';
 import {Provider as AuthProvider} from './src/context/AuthContext';
 import {setNavigator} from './src/navigationRef';
+import {GoogleSignin} from '@react-native-google-signin/google-signin';
 
 const Stack = createStackNavigator();
 
 const App = () => {
+  useEffect(() => {
+    GoogleSignin.configure({
+      webClientId:
+        '188222727144-fc31qrmg7j5ngn6edmmin4hd14p3jqml.apps.googleusercontent.com',
+    });
+  }, []);
   return (
     <View style={{flex: 1, backgroundColor: '#003049'}}>
       <NavigationContainer ref={navigation => setNavigator(navigation)}>

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "188222727144-34u23bij0lam8u6j01un5q2nlnr3mp6m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jagomain",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
           "client_id": "188222727144-fc31qrmg7j5ngn6edmmin4hd14p3jqml.apps.googleusercontent.com",
           "client_type": 3
         }
