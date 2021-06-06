@@ -13,7 +13,6 @@ import {setNavigator} from './src/navigationRef';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
-import {Context as AuthContext} from './src/context/AuthContext';
 
 const Stack = createStackNavigator();
 
