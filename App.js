@@ -13,6 +13,7 @@ import {setNavigator} from './src/navigationRef';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import ListNewsScreen from './src/screens/ListNewsScreen';
 
 const Stack = createStackNavigator();
 
@@ -137,6 +138,11 @@ const App = () => {
               options={{headerShown: false}}
             />
           )}
+          <Stack.Screen
+              component={ListNewsScreen}
+              name="ListNewsScreen"
+              options={{headerShown: false}}
+            />
         </Stack.Navigator>
       </NavigationContainer>
     </View>
