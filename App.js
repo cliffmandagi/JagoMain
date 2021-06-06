@@ -2,7 +2,6 @@ import React, {useEffect, useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {View, Image, ActivityIndicator} from 'react-native';
-import {Text} from 'react-native-elements';
 import IntroductionCarouselScreen from './src/screens/IntroductionCarouselScreen';
 import SignInScreen from './src/screens/SignInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
