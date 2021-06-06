@@ -41,7 +41,7 @@ const Paginator = ({data, scrollX}) => {
 
       <TouchableOpacity
         style={{position: 'absolute', right: 30}}
-        onPress={() => navigation.navigate('SignIn')}>
+        onPress={() => navigation.navigate('loginFlow', {screen: 'SignIn'})}>
         <Animated.Image
           source={require('./../../../assets/NextButton.png')}
           style={{width: 64, height: 64, transform: [{scale: scale}]}}

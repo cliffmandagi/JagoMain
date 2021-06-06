@@ -1,13 +1,25 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {Image, View, TouchableOpacity, StyleSheet} from 'react-native';
 import {Input, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {Context as AuthContext} from '../context/AuthContext';
 
 const SignInScreen = ({navigation}) => {
-  const {state, signin} = useContext(AuthContext);
+  const {
+    state: {user},
+    signin,
+    tryLocalSignin,
+  } = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      tryLocalSignin();
+    });
+    return unsubscribe;
+  }, []);
+
   return (
     <View style={styles.container}>
       <Image source={require('../../assets/logo.png')} style={styles.logo} />

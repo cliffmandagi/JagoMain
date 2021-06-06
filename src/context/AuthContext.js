@@ -27,10 +27,24 @@ const checkFirstTime = dispatch => {
         await AsyncStorage.setItem('firstTime', 'false');
         dispatch({type: 'SET_FIRST_TIME', payload: 'false'});
       } else {
-        navigate('SignIn');
+        navigate('loginFlow', {screen: 'SignIn'});
       }
     } catch (err) {
       dispatch({type: 'SET_ERROR_MSG', payload: err.message});
+    }
+  };
+};
+
+const tryLocalSignin = dispatch => {
+  return async () => {
+    try {
+      const {user} = await GoogleSignin.getCurrentUser();
+      if (user) {
+        dispatch({type: 'SET_USER_INFO', payload: user});
+        navigate('mainFlow', {screen: 'Home'});
+      }
+    } catch (err) {
+      console.log(err.message);
     }
   };
 };
@@ -41,7 +55,6 @@ const signin = dispatch => {
       await GoogleSignin.hasPlayServices();
       const {user} = await GoogleSignin.signIn();
       dispatch({type: 'SET_USER_INFO', payload: user});
-      navigate('Home');
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         console.log('Cancelled');
@@ -62,6 +75,6 @@ const signout = dispatch => {
 
 export const {Context, Provider} = createDataContext(
   authReducer,
-  {checkFirstTime, signin},
-  {firstTime: null, errorMessage: '', user: null},
+  {checkFirstTime, signin, tryLocalSignin},
+  {firstTime: null, errorMessage: '', user: null, token: null},
 );

@@ -1,10 +1,10 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import {View, StyleSheet, Image} from 'react-native';
 import {Text} from 'react-native-elements';
 import {Input} from 'react-native-elements';
 import {Context as AuthContext} from '../context/AuthContext';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const {state} = useContext(AuthContext);
   const {user} = state;
   return (
