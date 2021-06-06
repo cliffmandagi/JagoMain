@@ -2,7 +2,7 @@ import React, {useEffect, useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {View, Text, Button} from 'react-native';
+import {View, Image, Text, Button} from 'react-native';
 import IntroductionCarouselScreen from './src/screens/IntroductionCarouselScreen';
 import SignInScreen from './src/screens/SignInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
@@ -11,9 +11,11 @@ import {Provider as AuthProvider} from './src/context/AuthContext';
 import {Context as AuthContext} from './src/context/AuthContext';
 import {setNavigator} from './src/navigationRef';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
+import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
+import Icon from 'react-native-vector-icons/Ionicons';
+import {Context as AuthContext} from './src/context/AuthContext';
 
 const Stack = createStackNavigator();
-const BottomTab = createBottomTabNavigator();
 
 const loginFlow = () => {
   return (
@@ -45,13 +47,67 @@ const loginFlow = () => {
   );
 };
 
+const Tab = createMaterialBottomTabNavigator();
+
 const mainFlow = () => {
+  const {state} = useContext(AuthContext);
+  const {user} = state;
   return (
-    <View style={{backgroundColor: '#003049', flex: 1}}>
-      <BottomTab.Navigator>
-        <BottomTab.Screen component={HomeScreen} name="Home" />
-      </BottomTab.Navigator>
-    </View>
+    <Tab.Navigator
+      initialRouteName="Home"
+      activeColor="#F77F00"
+      barStyle={{backgroundColor: '#003049'}}>
+      <Tab.Screen
+        name="Berita"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: 'Home',
+          tabBarIcon: ({color}) => (
+            <Icon name="ios-home" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Tournament"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: 'Turnamen',
+          tabBarIcon: ({color}) => (
+            <Icon name="ios-trophy" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Tutorial"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: 'Panduan',
+          tabBarIcon: ({color}) => (
+            <Icon name="ios-book" color={color} size={26} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: 'Profil',
+          tabBarIcon: ({color}) => (
+            // <Icon name="ios-person" color={color} size={26} />
+            <Image
+              source={{uri: user.photo}}
+              style={{
+                width: 26,
+                height: 26,
+                borderRadius: 50,
+                borderWidth: 1,
+                borderColor: `${color}`,
+              }}
+            />
+          ),
+        }}
+      />
+    </Tab.Navigator>
   );
 };
 
