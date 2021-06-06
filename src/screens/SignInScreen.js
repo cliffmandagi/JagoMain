@@ -5,20 +5,9 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import {Context as AuthContext} from '../context/AuthContext';
 
 const SignInScreen = ({navigation}) => {
-  const {
-    state: {user},
-    signin,
-    tryLocalSignin,
-  } = useContext(AuthContext);
+  const {signin, tryLocalSignin} = useContext(AuthContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('focus', () => {
-      tryLocalSignin();
-    });
-    return unsubscribe;
-  }, []);
 
   return (
     <View style={styles.container}>

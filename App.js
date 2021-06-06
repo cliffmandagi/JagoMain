@@ -1,8 +1,8 @@
 import React, {useEffect, useContext} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {View, Image, Text, Button} from 'react-native';
+import {View, Image, ActivityIndicator} from 'react-native';
+import {Text} from 'react-native-elements';
 import IntroductionCarouselScreen from './src/screens/IntroductionCarouselScreen';
 import SignInScreen from './src/screens/SignInScreen';
 import SignUpScreen from './src/screens/SignUpScreen';
@@ -13,6 +13,7 @@ import {setNavigator} from './src/navigationRef';
 import {GoogleSignin} from '@react-native-google-signin/google-signin';
 import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
+import auth from '@react-native-firebase/auth';
 
 const Stack = createStackNavigator();
 
@@ -51,6 +52,18 @@ const Tab = createMaterialBottomTabNavigator();
 const mainFlow = () => {
   const {state} = useContext(AuthContext);
   const {user} = state;
+  if (!user)
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#003049',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <ActivityIndicator size="large" color="white" />
+      </View>
+    );
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -94,7 +107,7 @@ const mainFlow = () => {
           tabBarIcon: ({color}) => (
             // <Icon name="ios-person" color={color} size={26} />
             <Image
-              source={{uri: user.photo}}
+              source={{uri: user.photoURL}}
               style={{
                 width: 26,
                 height: 26,
@@ -112,14 +125,39 @@ const mainFlow = () => {
 
 const App = () => {
   const {
-    state: {user},
+    state: {user, initializing},
+    setUser,
+    setInitializing,
   } = useContext(AuthContext);
-  useEffect(async () => {
+
+  // Handle user state changes
+  function onAuthStateChanged(user) {
+    setUser(user);
+    if (initializing) setInitializing(false);
+  }
+
+  useEffect(() => {
     GoogleSignin.configure({
       webClientId:
         '188222727144-fc31qrmg7j5ngn6edmmin4hd14p3jqml.apps.googleusercontent.com',
     });
+    const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
+    return subscriber; // unsubscribe on unmount
   }, []);
+
+  if (initializing)
+    return (
+      <View
+        style={{
+          flex: 1,
+          backgroundColor: '#003049',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}>
+        <ActivityIndicator size="large" color="white" />
+      </View>
+    );
+
   return (
     <View style={{flex: 1, backgroundColor: '#003049'}}>
       <NavigationContainer ref={navigation => setNavigator(navigation)}>

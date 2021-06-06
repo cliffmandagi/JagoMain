@@ -1,5 +1,6 @@
 import createDataContext from './createDataContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import auth from '@react-native-firebase/auth';
 import {navigate} from '../navigationRef';
 import {
   GoogleSignin,
@@ -14,6 +15,10 @@ const authReducer = (state, action) => {
       return {...state, firstTime: action.payload};
     case 'SET_USER_INFO':
       return {...state, user: action.payload};
+    case 'RESET_USER_INFO':
+      return {...state, user: null};
+    case 'SET_INITIALIZING':
+      return {...state, initializing: action.payload};
     default:
       return state;
   }
@@ -35,46 +40,41 @@ const checkFirstTime = dispatch => {
   };
 };
 
-const tryLocalSignin = dispatch => {
-  return async () => {
-    try {
-      const {user} = await GoogleSignin.getCurrentUser();
-      if (user) {
-        dispatch({type: 'SET_USER_INFO', payload: user});
-        navigate('mainFlow', {screen: 'Home'});
-      }
-    } catch (err) {
-      console.log(err.message);
-    }
-  };
-};
-
 const signin = dispatch => {
   return async () => {
-    try {
-      await GoogleSignin.hasPlayServices();
-      const {user} = await GoogleSignin.signIn();
-      dispatch({type: 'SET_USER_INFO', payload: user});
-    } catch (error) {
-      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-        console.log('Cancelled');
-      } else if (error.code === statusCodes.IN_PROGRESS) {
-        // operation (e.g. sign in) is in progress already
-      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        // play services not available or outdated
-      } else {
-        // some other error happened
-      }
-    }
+    // Get the users ID token
+    const {idToken} = await GoogleSignin.signIn();
+
+    // Create a Google credential with the token
+    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
+
+    // Sign-in the user with the credential
+    return auth().signInWithCredential(googleCredential);
   };
 };
 
 const signout = dispatch => {
-  return () => {};
+  return () => {
+    auth()
+      .signOut()
+      .then(() => console.log('User signed out!'));
+  };
+};
+
+const setUser = dispatch => {
+  return async user => {
+    dispatch({type: 'SET_USER_INFO', payload: user});
+  };
+};
+
+const setInitializing = dispatch => {
+  return async bool => {
+    dispatch({type: 'SET_INITIALIZING', payload: bool});
+  };
 };
 
 export const {Context, Provider} = createDataContext(
   authReducer,
-  {checkFirstTime, signin, tryLocalSignin},
-  {firstTime: null, errorMessage: '', user: null, token: null},
+  {checkFirstTime, signin, signout, setUser, setInitializing},
+  {firstTime: null, errorMessage: '', user: null, initializing: true},
 );

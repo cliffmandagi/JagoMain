@@ -1,10 +1,10 @@
 import React, {useContext} from 'react';
 import {View, StyleSheet, ScrollView, Image} from 'react-native';
-import {Text, Header, Divider} from 'react-native-elements';
+import {Text, Header, Divider, Button} from 'react-native-elements';
 import {Context as AuthContext} from '../context/AuthContext';
 
 const HomeScreen = ({navigation}) => {
-  const {state} = useContext(AuthContext);
+  const {state, signout} = useContext(AuthContext);
   const {user} = state;
   return (
     <View style={{flex: 1, backgroundColor: '#002437'}}>
@@ -25,6 +25,7 @@ const HomeScreen = ({navigation}) => {
             style={{color: 'white', fontFamily: 'Poppins-Black', fontSize: 18}}>
             TEST
           </Text>
+          <Button title="signout" onPress={signout} />
         </View>
 
         <Divider style={{backgroundColor: '#00283C', marginHorizontal: 20}} />
