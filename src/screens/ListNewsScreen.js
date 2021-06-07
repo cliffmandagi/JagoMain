@@ -16,7 +16,6 @@ const ListNewsScreen = ({navigation}) => {
   const {user} = state;
   return (
     <View style={styles.container}>
-      <Text style>Hi</Text>
 
       <Header
         centerComponent={{
@@ -36,10 +35,13 @@ const ListNewsScreen = ({navigation}) => {
           </TouchableOpacity>
         }
       />
+
       <ScrollView showsHorizontalScrollIndicator={false}>
         <View style={{flex: 1, marginHorizontal: 10, marginTop: 10}}>
           {NewsDummy.map(item => (
-            <TouchableOpacity style={styles.rowCardContainer} key={item.id}>
+            <TouchableOpacity style={styles.rowCardContainer} key={item.id} onPress={() => navigation.navigate('NewsDetailScreen', {
+              id: item.id
+            })}>
               <View
                 style={{
                   marginHorizontal: 10,
@@ -71,6 +73,7 @@ const ListNewsScreen = ({navigation}) => {
           ))}
         </View>
       </ScrollView>
+
     </View>
   );
 };
