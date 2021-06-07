@@ -81,7 +81,7 @@ const HomeScreen = ({navigation}) => {
           <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
             <View style={styles.containerForCard}>
               {NewsDummy.map(item => (
-                <TouchableOpacity style={styles.cardContainer} key={item.id}>
+                <TouchableOpacity style={styles.cardContainer} key={item.id} onPress={() => navigation.navigate('VideoDetailScreen')}>
                   <Image source={{uri: item.image}} style={styles.cardImage} />
                   <Text style={styles.cardText}>{item.title}</Text>
                 </TouchableOpacity>

@@ -16,6 +16,7 @@ import auth from '@react-native-firebase/auth';
 import ListNewsScreen from './src/screens/ListNewsScreen';
 import AccountScreen from './src/screens/AccountScreen';
 import NewsDetailScreen from './src/screens/NewsDetailScreen';
+import VideoDetailScreen from './src/screens/VideoDetailScreen';
 
 const Stack = createStackNavigator();
 
@@ -185,6 +186,11 @@ const App = () => {
           <Stack.Screen
             component={NewsDetailScreen}
             name="NewsDetailScreen"
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            component={VideoDetailScreen}
+            name="VideoDetailScreen"
             options={{headerShown: false}}
           />
         </Stack.Navigator>
