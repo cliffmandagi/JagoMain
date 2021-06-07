@@ -6,6 +6,7 @@ import {Context as AuthContext} from '../context/AuthContext';
 const HomeScreen = ({navigation}) => {
   const {state, signout} = useContext(AuthContext);
   const {user} = state;
+  console.log(user);
   return (
     <View style={{flex: 1, backgroundColor: '#002437'}}>
       <ScrollView showsVerticalScrollIndicator={false}>
