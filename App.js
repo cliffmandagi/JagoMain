@@ -14,6 +14,7 @@ import {createMaterialBottomTabNavigator} from '@react-navigation/material-botto
 import Icon from 'react-native-vector-icons/Ionicons';
 import auth from '@react-native-firebase/auth';
 import ListNewsScreen from './src/screens/ListNewsScreen';
+import AccountScreen from './src/screens/AccountScreen';
 
 const Stack = createStackNavigator();
 
@@ -101,7 +102,7 @@ const mainFlow = () => {
       />
       <Tab.Screen
         name="Profile"
-        component={HomeScreen}
+        component={AccountScreen}
         options={{
           tabBarLabel: 'Profil',
           tabBarIcon: ({color}) => (

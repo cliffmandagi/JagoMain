@@ -83,7 +83,21 @@ const signInWithEmail = dispatch => {
 
 const signout = dispatch => {
   return () => {
-    auth().signOut();
+    auth()
+      .signOut()
+      .then(async () => {
+        try {
+          const user = await GoogleSignin.getCurrentUser();
+          if (user) {
+            await GoogleSignin.revokeAccess();
+          }
+        } catch (err) {
+          console.log(err);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 };
 
