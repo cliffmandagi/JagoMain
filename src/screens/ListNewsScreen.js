@@ -16,8 +16,6 @@ const ListNewsScreen = ({navigation}) => {
   const {user} = state;
   return (
     <View style={styles.container}>
-      <Text style>Hi</Text>
-
       <Header
         centerComponent={{
           text: 'BERITA',
