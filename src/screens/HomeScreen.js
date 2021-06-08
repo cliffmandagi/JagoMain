@@ -81,7 +81,7 @@ const HomeScreen = ({navigation}) => {
           <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
             <View style={styles.containerForCard}>
               {NewsDummy.map(item => (
-                <TouchableOpacity style={styles.cardContainer} key={item.id}>
+                <TouchableOpacity style={styles.cardContainer} key={item.id} onPress={() => navigation.navigate('VideoDetailScreen')}>
                   <Image source={{uri: item.image}} style={styles.cardImage} />
                   <Text style={styles.cardText}>{item.title}</Text>
                 </TouchableOpacity>
@@ -139,7 +139,9 @@ const HomeScreen = ({navigation}) => {
           <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
             <View style={styles.containerForCard}>
               {NewsDummy.map(item => (
-                <TouchableOpacity style={styles.cardContainer} key={item.id}>
+                <TouchableOpacity style={styles.cardContainer} key={item.id} onPress={() => navigation.navigate('NewsDetailScreen', {
+                  id: item.id
+                })}>
                   <Image source={{uri: item.image}} style={styles.cardImage} />
                   <Text style={styles.cardText}>{item.title}</Text>
                 </TouchableOpacity>
@@ -153,7 +155,9 @@ const HomeScreen = ({navigation}) => {
           {/* ------News Area----- */}
           <View style={{flex: 1}}>
             {NewsDummy.map(item => (
-              <TouchableOpacity style={styles.rowCardContainer} key={item.id}>
+              <TouchableOpacity style={styles.rowCardContainer} key={item.id} onPress={() => navigation.navigate('NewsDetailScreen', {
+                id: item.id
+              })}>
                 <Image source={{uri: item.image}} style={styles.rowCardImage} />
                 <View style={styles.rowCardInfoContainer}>
                   <Text style={styles.rowCardText}>{item.title}</Text>
