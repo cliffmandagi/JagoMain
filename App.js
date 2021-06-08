@@ -106,7 +106,6 @@ const mainFlow = () => {
         options={{
           tabBarLabel: 'Profil',
           tabBarIcon: ({color}) => (
-            // <Icon name="ios-person" color={color} size={26} />
             <Image
               source={{uri: user.photoURL}}
               style={{
