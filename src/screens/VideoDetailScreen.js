@@ -29,23 +29,47 @@ const NewsDetailScreen = ({route, navigation}) => {
           </TouchableOpacity>
         }
       />
-      <WebView
-        style={{ flex: 5, height: 100 }}
-        javaScriptEnabled={true}
-        domStorageEnabled={true}
-        allowsFullscreenVideo={true}
-        source={{uri: `https://www.youtube.com/embed/${VideoDummy[id-1].embed}`}}
-      />
+      <View style={{height: 220}}>
+        <WebView
+          style={{flex: 1}}
+          javaScriptEnabled={true}
+          domStorageEnabled={true}
+          allowsFullscreenVideo={true}
+          source={{
+            uri: `https://www.youtube.com/embed/${VideoDummy[id - 1].embed}`,
+          }}
+        />
+      </View>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.contentContainer}>
           <View style={styles.bodyContentContainer}>
             <Text h4 style={styles.titleColor}>
-              {VideoDummy[id-1].title}
+              {VideoDummy[id - 1].title}
             </Text>
 
-            <Text h5 style={styles.bodyText}>
-              {VideoDummy[id-1].date}
-            </Text>
+            <Text style={styles.bodyText}>{VideoDummy[id - 1].date}</Text>
+
+            <Divider style={styles.divider} />
+            <Text style={styles.otherVideosText}>Video Lainnya</Text>
+
+            <View>
+              {VideoDummy.map(item => (
+                <TouchableOpacity style={styles.cardContainer} key={item.id}>
+                  <Image
+                    source={{uri: VideoDummy[item.id - 1].image}}
+                    style={styles.cardImage}
+                  />
+                  <View style={styles.cardInfoContainer}>
+                    <Text numberOfLines={2} style={styles.cardInfoTitle}>
+                      {VideoDummy[item.id - 1].title}
+                    </Text>
+                    <Text style={styles.cardInfoDate}>
+                      {VideoDummy[item.id - 1].date}
+                    </Text>
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -63,6 +87,7 @@ const styles = StyleSheet.create({
   divider: {
     backgroundColor: '#003854',
     marginVertical: 10,
+    marginTop: 20,
   },
   headerContainerStyle: {
     borderBottomColor: '#002437',
@@ -75,26 +100,12 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    marginHorizontal: 20,
+    marginHorizontal: 15,
     marginBottom: 20,
-  },
-  authorCardContainer: {
-    flexDirection: 'row',
-    marginTop: 20,
-  },
-  authorCardInfoContainer: {
-    flex: 1,
-    marginLeft: 20,
-  },
-  authordCardInfoName: {
-    color: 'white',
-  },
-  authorCardInfoDate: {
-    color: '#828282',
   },
   bodyContentContainer: {
     flex: 1,
-    marginTop: 20,
+    marginTop: 15,
   },
   titleColor: {
     color: 'white',
@@ -104,8 +115,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   bodyText: {
-    color: 'white',
-    marginTop: 20,
+    color: '#828282',
+    marginTop: 10,
   },
   backgroundVideo: {
     position: 'absolute',
@@ -113,5 +124,35 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
+  },
+  cardContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    marginTop: 10,
+    marginBottom: 5,
+  },
+  cardImage: {
+    height: 70,
+    width: 140,
+    resizeMode: 'stretch',
+    borderRadius: 15,
+  },
+  cardInfoContainer: {
+    flex: 1,
+    marginLeft: 15,
+    justifyContent: 'center',
+  },
+  cardInfoTitle: {
+    color: 'white',
+    fontSize: 16,
+  },
+  cardInfoDate: {
+    color: '#828282',
+    fontSize: 14,
+  },
+  otherVideosText: {
+    color: 'white',
+    marginBottom: 10,
+    fontSize: 16,
   },
 });

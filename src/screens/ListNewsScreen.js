@@ -64,8 +64,8 @@ const ListNewsScreen = ({navigation}) => {
 
               <View style={{flex: 1, flexDirection: 'row'}}>
                 <View style={styles.rowCardInfoContainer}>
-                  <Text style={styles.rowCardText}>{item.title}</Text>
-                  <Text style={styles.rowCardInfoText}>{item.description}</Text>
+                  <Text numberOfLines={2} style={styles.rowCardText}>{item.title}</Text>
+                  <Text numberOfLines={2} style={styles.rowCardInfoText}>{item.description}</Text>
                 </View>
                 <Image source={{uri: item.image}} style={styles.rowCardImage} />
               </View>
@@ -186,6 +186,7 @@ const styles = StyleSheet.create({
   rowCardInfoContainer: {
     flex: 1,
     marginLeft: 10,
+    marginRight: 10,
     justifyContent: 'center',
     height: 80,
   },

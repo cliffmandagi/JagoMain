@@ -98,10 +98,12 @@ const HomeScreen = ({navigation}) => {
           {/* ------Clip Area----- */}
           <View style={{flex: 1}}>
             {VideoDummy.map(item => (
-              <TouchableOpacity style={styles.rowCardContainer} key={item.id}>
+              <TouchableOpacity style={styles.rowCardContainer} key={item.id} onPress={() => navigation.navigate('VideoDetailScreen', {
+                id: item.id
+              })}>
                 <Image source={{uri: item.image}} style={styles.rowCardImage} />
                 <View style={styles.rowCardInfoContainer}>
-                  <Text style={styles.rowCardText}>{item.title}</Text>
+                  <Text numberOfLines={2} style={styles.rowCardText}>{item.title}</Text>
                   <View style={styles.rowCardInfoInContainer}>
                     <Icon
                       name="calendar-outline"
@@ -146,7 +148,7 @@ const HomeScreen = ({navigation}) => {
                   id: item.id
                 })}>
                   <Image source={{uri: item.image}} style={styles.cardImage} />
-                  <Text style={styles.cardText}>{item.title}</Text>
+                  <Text numberOfLines={2} style={styles.cardText}>{item.title}</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -163,7 +165,7 @@ const HomeScreen = ({navigation}) => {
               })}>
                 <Image source={{uri: item.image}} style={styles.rowCardImage} />
                 <View style={styles.rowCardInfoContainer}>
-                  <Text style={styles.rowCardText}>{item.title}</Text>
+                  <Text numberOfLines={2} style={styles.rowCardText}>{item.title}</Text>
                   <View style={styles.rowCardInfoInContainer}>
                     <Icon
                       name="calendar-outline"
@@ -285,7 +287,7 @@ const styles = StyleSheet.create({
   },
   rowCardImage: {
     height: 70,
-    width: 120,
+    width: 130,
     resizeMode: 'stretch',
     borderRadius: 15,
   },
