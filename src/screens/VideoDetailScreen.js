@@ -3,10 +3,12 @@ import {View, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {Text, Header, Divider} from 'react-native-elements';
 import {ScrollView} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/Ionicons';
-import NewsDummy from './NewsDummy';
-import { WebView } from 'react-native-webview';
+import VideoDummy from './VideoDummy';
+import {WebView} from 'react-native-webview';
 
-const NewsDetailScreen = ({navigation}) => {
+const NewsDetailScreen = ({route, navigation}) => {
+  const {id} = route.params;
+
   return (
     <View style={styles.container}>
       <Header
@@ -27,39 +29,22 @@ const NewsDetailScreen = ({navigation}) => {
           </TouchableOpacity>
         }
       />
+      <WebView
+        style={{ flex: 5, height: 100 }}
+        javaScriptEnabled={true}
+        domStorageEnabled={true}
+        allowsFullscreenVideo={true}
+        source={{uri: `https://www.youtube.com/embed/${VideoDummy[id-1].embed}`}}
+      />
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.contentContainer}>
-          <View style={styles.authorCardContainer}>
-            {/* <Image
-              source={{
-                uri: 'https://cdn2.iconfinder.com/data/icons/avatars-99/62/avatar-370-456322-512.png',
-              }}
-              style={{
-                width: 40,
-                height: 40,
-                borderRadius: 50,
-              }}
-            /> */}
-            <View style={styles.authorCardInfoContainer}>
-              <Text style={styles.authordCardInfoName}>Name Here</Text>
-              <Text style={styles.authorCardInfoDate}>Date Here</Text>
-            </View>
-          </View>
-
           <View style={styles.bodyContentContainer}>
             <Text h4 style={styles.titleColor}>
-              Title Here
+              {VideoDummy[id-1].title}
             </Text>
 
-            <WebView
-                style={{ flex: 1, height: 210 }}
-                javaScriptEnabled={true}
-                domStorageEnabled={true}
-                source={{uri: 'https://www.youtube.com/embed/e0_qYu0Imt0' }}
-            />
-
             <Text h5 style={styles.bodyText}>
-              Description Here
+              {VideoDummy[id-1].date}
             </Text>
           </View>
         </View>

@@ -9,6 +9,7 @@ import {
 import {Text, Header, Divider} from 'react-native-elements';
 import {Context as AuthContext} from '../context/AuthContext';
 import NewsDummy from './NewsDummy';
+import VideoDummy from './VideoDummy';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 const HomeScreen = ({navigation}) => {
@@ -80,10 +81,12 @@ const HomeScreen = ({navigation}) => {
 
           <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
             <View style={styles.containerForCard}>
-              {NewsDummy.map(item => (
-                <TouchableOpacity style={styles.cardContainer} key={item.id} onPress={() => navigation.navigate('VideoDetailScreen')}>
+              {VideoDummy.map(item => (
+                <TouchableOpacity style={styles.cardContainer} key={item.id} onPress={() => navigation.navigate('VideoDetailScreen', {
+                  id: item.id
+                })}>
                   <Image source={{uri: item.image}} style={styles.cardImage} />
-                  <Text style={styles.cardText}>{item.title}</Text>
+                  <Text numberOfLines={2} style={styles.cardText}>{item.title}</Text>
                 </TouchableOpacity>
               ))}
             </View>
@@ -94,7 +97,7 @@ const HomeScreen = ({navigation}) => {
 
           {/* ------Clip Area----- */}
           <View style={{flex: 1}}>
-            {NewsDummy.map(item => (
+            {VideoDummy.map(item => (
               <TouchableOpacity style={styles.rowCardContainer} key={item.id}>
                 <Image source={{uri: item.image}} style={styles.rowCardImage} />
                 <View style={styles.rowCardInfoContainer}>
@@ -281,7 +284,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   rowCardImage: {
-    height: 80,
+    height: 70,
     width: 120,
     resizeMode: 'stretch',
     borderRadius: 15,
